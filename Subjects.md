@@ -1,23 +1,22 @@
-# Estudos Relacionados a Jr.
-
 [Docs](https://docs.google.com/document/d/1lVc5Q2sH3r0I_WMwkMIwU-pHj31VkWsCqXa3m49qAvE/edit).
 
+# Estudos Relacionados a Jr.
 
 ### Linguagem:
-* Java node, python
+* ~Java~
 * Node
-* Python
+* ~Python~
 
 ### Orientação a Objetos:
-* Polimorfismo
-* Herança
-* Encapsulamento
-* Interface
-* Classes Abstratas
+* ~Polimorfismo~
+* ~Herança~
+* ~Encapsulamento~
+* ~Interface~
+* ~Classes Abstratas~
 
 ### Design Patterns:
-* Strategy
-* Factory / Factory Abstract
+* ~Strategy~
+* ~Factory / Factory Abstract~
 * Reflection
 * Chain of Responsability
 * Dep. Injection

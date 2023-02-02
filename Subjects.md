@@ -17,9 +17,9 @@
 ### Design Patterns:
 * ~Strategy~
 * ~Factory / Factory Abstract~
-* Reflection
+* ~Reflection~
 * Chain of Responsability
-* Dep. Injection
+* ~Dep. Injection~
 
 ### Arquitetura de Software:
 * SOLID

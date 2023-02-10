@@ -18,19 +18,19 @@
 * ~Strategy~
 * ~Factory / Factory Abstract~
 * ~Reflection~
-* Chain of Responsability
+* ~Chain of Responsability~
 * ~Dep. Injection~
 
 ### Arquitetura de Software:
-* SOLID
+* ~SOLID~
 * Clean Code
 
 ### Frameworks:
-* Spring (Spring Boot, Spring Data, JPA)
+* ~Spring (Spring Boot, Spring Data, JPA)~
 
 ### Redes:
-* Protocolo HTTP (GET / POST / PUT / PATCH / DELETE)
-* Status (Familia 2xx, 3xx, 4xx, 5xx)
+* ~Protocolo HTTP (GET / POST / PUT / PATCH / DELETE)~
+* ~Status (Familia 2xx, 3xx, 4xx, 5xx)~
 
 ### Gitflow
 * Master / develop /  release /  hotfix /  PRs

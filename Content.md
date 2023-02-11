@@ -110,3 +110,246 @@ Test → Testes unitários utilizando JUnit, e testes de integração.
 Dentro do Spring Framework, faz-se utilização da injeção de dependência, na qual a implementação está presente no Core Container. Quando a aplicação é executada, as configurações pré-definidas em classes ou arquivos XML são lidas e criadas através da inversão de controle, sendo criadas e destruídas durante a execução do projeto. Essas dependências são chamadas de Beans dentro do contexto Spring.
 
 ![Estrutura Bean.Life](imgs/bean_life.png)
+
+**Bean com a anotação do tipo @Component, @Service, @Controller**
+
+Bean do tipo Component :
+~~~~Java
+@Component
+public class Produto{
+    private String nome;
+    private BigDecimal valor;
+    //... Getters e Setters
+}
+~~~~
+
+Bean do tipo Service :
+~~~~Java
+@Service
+public class ProdutoService{
+    //... Regras de negócios
+}
+~~~~
+
+Bean do tipo Controller :
+~~~~Java
+@Controller
+public class ProdutoContollers{
+    //... POST, GET, PUT, DELETE
+}
+~~~~
+
+Bean do tipo Repository :
+~~~~Java
+@Repository
+public class ProdutoRepository{
+    //... Transações de banco de dados
+}
+~~~~
+
+É necessário entender aoned que o Spring ira injetar as instânciaas de depedências, por isso é necessário criar pontos de injeção, que é uma maneira de entregar as dependências ao objeto o que necessitar.
+
+Injeção de Dependências através de **Construtor** :
+~~~~Java
+@Service
+public class ProdutoService{
+    private ProdutoRepository produtoRepository;
+
+    public ProdutoService(ProdutoRepository produtoRepository){
+        this.produtoRepository = produtoRepository;
+    }
+
+    //... Regras de negócios
+}
+~~~~
+
+Injeção de Dependências através de **Setter** :
+~~~~Java
+@Service
+public class ProdutoService{
+    private ProdutoRepository produtoRepository;
+
+    public void setProdutoRepository(ProdutoRepository produtoRepository){
+        this.produtoRepository = produtoRepository;
+    }
+
+    //... Regras de negócios
+}
+~~~~
+
+Dentro do Spring, há uma outra maneira de se criar pontos de injeção de 
+forma automática, utilizando a anotação **@Autowired**:
+
+~~~~Java
+@Service
+public class ProdutoService{
+
+    @Autowired
+    private ProdutoRepository produtoRepository;
+
+    //... Regras de negócios
+}
+~~~~
+
+### **Spring Boot :**
+O Spring Boot é uma extensão do Spring, utilizando bases do Spring para iniciar uma aplicação de uma forma bem mais simplificada, também já trazendo um servidor embutido.
+
+### **API REST e RESTful :**
+É uma aplicação cliente/servidor que envia e recebe dados através do protocolo HTTP, utilizando XML e Json para comunicação, permitindo que diferentes sistemas como desktop e mobile consumam a mesma API.
+Uma API pode ser considerada RESTful, quando utiliza-se de conceitos arquiteturais REST.
+
+REST → REST é um conjunto de boas práticas que é capaz de gerar maior produtividade na construção e no consumo da API. Essas regras devem ser seguidas
+* API deve ser cliente/servidor.
+* Deve ser stateless, ou seja, cada requisição deve ter informações únicas para cada resposta.
+* API deve ter capacidade de realizar cache para reduzir tráfego de dados entre cliente/servidor.
+* Deve ter uma interface uniforme.
+* Construído em camadas, possibilitando escalabilidade.
+* Deve ter capacidade de evoluir sem prejudicá-la.
+* A API rest deve possuir dois tipos de comunicação, XML e JSON.
+
+
+**Criando uma Model e Repository em Spring :**
+
+~~~~Java
+@Entity
+@Table(name= "TB_PRODUTOS")
+public class ProdutoModel{
+
+    @Id
+    @GenereatedValue(strategy = GenerationType.AUTO)
+    private UUID idProduto;
+
+    private String nome;
+    private BigDecimal valor;
+
+    //... Getters e Setter;
+}
+~~~~
+
+**Criação de uma interface de Repository utilizando JPA, para obter métodos como findAll(), findById(), save(), delete()**
+
+~~~~Java
+@Repository
+public interface ProdutoRepository extends JpaRepository<ProdutoModel, UUID>{
+
+}
+~~~~
+
+**Criando o Controller utilizando Beans, assim uma injeção de dependência do Controller quando necessário.**
+
+<!-- ~~~~Java
+@RestController
+public class ProdutoController{
+    @Autowired
+    ProdutoRepository produtoRepository;
+
+    //Métodos GET ALL e GET ONE
+    @GetMapping("/produtos")
+    public ReponseEntity<List<ProdutoModel>> getAllProdutos(){
+        return new ResponseEntity<List<ProdutoModel>>(produtoRepository.findAll(), HttpStatus.OK);
+    }
+
+    @GetMapping("/produtos/{id}")
+    public ReponseEntity<ProdutoModel>getOneProduto(@PathVariable(value="id") UUID id){
+        Optional<ProdutoModel> produtoOptional = produtoRepository.findById(id);
+        if(produtoOptional.isEmpty()){
+            return new ReponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<ProdutoModel>(produtoOptional.get(), HttpStatus.OK);
+    }
+
+    //POST, DELETE, PUT
+    @PostMapping("/produtos")
+    public ResponseEntity<ProdutoModel> saveProduto(@RequestBody @Valid ProdutoModel produto){
+        return new ResponseEntity<ProdutoModel>(produtoRepository.save(produto), HttpStatus.CREATED);
+    }
+}
+~~~~ -->
+
+*Obtendo todos produtos findAll()*
+~~~~Java
+@RestController
+public class ProdutoController{
+    @Autowired
+    ProdutoRepository produtoRepository;
+
+    @GetMapping("/produtos")
+    public ReponseEntity<List<ProdutoModel>> getAllProdutos(){
+        return new ResponseEntity<List<ProdutoModel>>(produtoRepository.findAll(), HttpStatus.OK);
+    }
+}
+~~~~
+
+*Obtendo um produto findById()*
+~~~~Java
+@RestController
+public class ProdutoController{
+    @Autowired
+    ProdutoRepository produtoRepository;
+
+    @GetMapping("/produtos/{id}")
+    public ReponseEntity<ProdutoModel>getOneProduto(@PathVariable(value="id") UUID id){
+        Optional<ProdutoModel> produtoOptional = produtoRepository.findById(id);
+        if(produtoOptional.isEmpty()){
+            return new ReponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<ProdutoModel>(produtoOptional.get(), HttpStatus.OK);
+    }
+}
+~~~~
+
+*Método POST*
+~~~~Java
+@RestController
+public class ProdutoController{
+    @Autowired
+    ProdutoRepository produtoRepository;
+
+    @PostMapping("/produtos")
+    public ResponseEntity<ProdutoModel> saveProduto(@RequestBody @Valid ProdutoModel produto){
+        return new ResponseEntity<ProdutoModel>(produtoRepository.save(produto), HttpStatus.CREATED);
+    }
+}
+~~~~
+
+*Método PUT*
+~~~~Java
+@RestController
+public class ProdutoController{
+    @Autowired
+    ProdutoRepository produtoRepository;
+
+    @PutMapping("/produtos/{id}")
+    public ResponseEntity<ProdutoModel> updateProduto(@PathVariable(value="id") UUID id, @RequestBody @Valid ProdutoModel produto){
+        Optional<ProdutoModel> produtoOptional = produtoRepository.findById(id);
+        if(produtoOptional.isEmpty()){
+            return new ReponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        produto.setIdProduto(produto.get().getIdProduto());
+        return new ResponseEntity<ProdutoModel>(produtoRepository.save(produto), HttpStatus.OK);
+    }
+}
+~~~~
+
+*Método DELETE*
+~~~~Java
+@RestController
+public class ProdutoController{
+    @Autowired
+    ProdutoRepository produtoRepository;
+
+    @PutMapping("/produtos/{id}")
+    public ResponseEntity<?> deleteProduto(@PathVariable(value="id") UUID id){
+        Optional<ProdutoModel> produtoOptional = produtoRepository.findById(id);
+        if(produtoOptional.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        produtoRepository.delete(produtoOptional.get());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+}
+~~~~
+
+
+### **Java JPA :**
+Java Persistence API (JPA) é a especificação padrão da plataforma Java EE para mapeamento objeto-relacional e persistência de dados.	

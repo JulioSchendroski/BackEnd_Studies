@@ -352,4 +352,271 @@ public class ProdutoController{
 
 
 ### **Java JPA :**
-Java Persistence API (JPA) é a especificação padrão da plataforma Java EE para mapeamento objeto-relacional e persistência de dados.	
+Java Persistence API (JPA) é a especificação padrão da plataforma Java EE para mapeamento objeto-relacional e persistência de dados.
+
+# **SOLID**
+
+## **Princípio da Responsabilidade Única (SRP)**
+*“Uma classe deve ter apenas um motivo para mudar”*
+
+Cada classe deve fazer apenas um trabalho. Portanto, isso significa que uma classe deve ter um, e somente um, motivo para mudar.
+Veja o exemplo:
+
+~~~~Java
+public class Usuario{
+    private String email;
+    private String senha;
+
+    //... Getters e Setter
+
+    public boolean usuarioEhValido(){
+        //Regra de autenticação
+    }
+    
+    public boolean temCargo(){
+        //Regra de validação de cargo
+    }
+}
+~~~~
+
+
+No exemplo acima, temos que a classe Usuario implementa regras de negócios de validações diferentes, deixando fortemente acoplado a classe em ralação as regras de negócios.
+Podemos aplicar o princípio da responsabilidade única para desacoplar o máximo possível.
+
+
+~~~~Java
+public class Usuario {
+    private String email;
+    private String senha;
+
+    //... Getters e Setter
+}
+
+public class PermissaoService{
+
+    public boolean temCargo(){
+        //Regra de validação de cargo
+    }
+}
+
+public class ValidacaoService{
+
+    public boolean usuarioEhValido(){
+        //Regra de autenticação
+    }
+}
+~~~~
+
+## **Princípio do Aberto/Fechado (OCP)**
+*"“As entidades de software (classes, módulos, funções etc.) devem ser abertas para ampliação, mas fechadas para modificação”.*
+
+**Aberto para extensão** diz que você deve projetar suas classes para que novas funcionalidades possam ser adicionadas à medida que novos requisitos são gerados.
+
+**Fechado para modificação** significa que uma vez que uma classe tenha sido desenvolvida ela nunca deve ser modificada, exceto para corrigir bugs e demais problemas no código.
+
+~~~~Java
+public class Funcionario {
+    //... Getters e Setter
+}
+
+public class ContratoCLT extends Funcionario{
+    public float salario(){
+        return 3000;
+    }
+}
+
+public class Estagio extends Funcionario{
+    public float salario(){
+        return 1000;
+    }
+}
+
+public class FolhaPagamento{
+    protected float saldo;
+    public void calcular(Funcionario funcionario){
+        if(funcionario instanceof ContratoCLT){
+            this.saldo = ((ContratoCLT) funcionario).saldo();
+        }else if(funcionario instanceof Estagio){
+            this.saldo = ((Estagio) funcionario).bolsaAuxiliar();
+        }
+    }
+}
+~~~~
+
+O código exemplificado fere gravemente o princípio open /close, uma vez que é necessário sempre acrescentar sempre uma condicional a mais para expandir a regra de negócio. Vale notar o design patern Strategy que lida justamente com a expensão de novas models para o sistema, reforçando o principio de open / closed.
+
+~~~~Java
+public interface Remuneravel{
+    public float remuneracao();
+}
+
+public class ContratoCLT implements Remuneravel{
+    public float remuneracao(){
+        return 3000;
+    }
+}
+
+public class Estagio implements Remuneravel{
+    public float remuneracao(){
+        return 3000;
+    }
+}
+
+public class FolhaPagamento{
+    protected float saldo;
+    public void calcular(Remuneravel funcionario){
+        this.saldo = funcionario.remuneracao();
+    }
+}
+~~~~
+
+## **Princípio da Substituição de Liskov (LSP)**
+*Os subtipos devem ser substituíveis pelos seus tipos base.”*
+
+Isto é, classes derivadas podem ser substitutas de suas classes base, ou ainda: toda e qualquer classe derivada pode ser usada como se fosse a classe base.
+
+Assim, todo código que depende da classe base poderá usar qualquer uma das derivadas em tempo de execução mesmo sem saber da existência delas.
+
+~~~~Java
+public class A{
+    public String getNome(){
+        return "Meu nome é A";
+    }
+}
+
+public class B extends A{
+    @Override
+    public String getNome(){
+        return "Meu nome é B";
+    }
+}
+
+public class Main{
+    public static void main(String[] args){
+        A objA = new A();
+        B objB = new B();
+        imprimeNome(objA);
+        imprimeNome(objB);
+    }
+
+    public static void imprimeNome(A obj){
+        System.out.println(obj.getNome());
+    }
+}
+~~~~
+
+## **Princípio da Segregação de Interfaces (ISP)**
+*“muitas interfaces específicas são melhores do que uma interface geral”.*
+
+Esse princípio trata da coesão em interfaces, da construção de módulos enxutos, ou seja, com poucos comportamentos, de acordo com esse princípio, uma classe nunca deve ser obrigada a implementar interfaces e métodos que ela não usará.
+
+~~~~Java
+public interface Aves{
+    public void setLocalizacao(float longitude, float latitude);
+    public void setAltitude(float altitude);
+}
+
+public class Papagaio() implements Aves{
+    public void setLocalizacao(float longitude, float latitude){
+        // Regra de negócio
+    }
+
+    public void setAltitude(float altitude){
+        // Regra de negócio
+    }
+}
+
+public class Galinha() implements Aves{
+    public void setLocalizacao(float longitude, float latitude){
+        // Regra de negócio
+    }
+
+    public void setAltitude(float altitude){
+        // Regra de negócio
+    }
+}
+~~~~
+
+Fica evidente como atribuímos comportamentos genéricos para todas as demais classes. A Classe Galinha, por exemplo, acabou sendo forçada a ter o método “setAltitude”, situação que não deveria acontecer pois os galinhas não voam.
+
+~~~~Java
+public interface Aves{
+    public void setLocalizacao(float longitude, float latitude);
+}
+
+public interface AvesQueVoam extends Aves{
+    public void setAltitude(float altitude);
+}
+
+public class Papagaio() implements AvesQueVoam{
+    public void setLocalizacao(float longitude, float latitude){
+        // Regra de negócio
+    }
+
+    public void setAltitude(float altitude){
+        // Regra de negócio
+    }
+}
+
+public class Galinha() implements Aves{
+    public void setLocalizacao(float longitude, float latitude){
+        // Regra de negócio
+    }
+}
+~~~~
+
+## **Princípio da Inversão de Dependências (DIP)**
+*“depender de abstrações e não de classes concretas.”*
+
+Diz que devemos “depender de abstrações e não de classes concretas”. Uncle Bob quebra a definição desse princípio em dois sub-itens:
+
+* *“Módulos de alto nível não devem depender de módulos de baixo nível.”*
+* *“As abstrações não devem depender de detalhes. Os detalhes devem depender das abstrações.”*
+
+Seja o exemplo:
+
+~~~~Java
+public class Carro{
+    private Engine engine;
+    public Carro(Engine engine){
+        this.engine = engine;
+    }
+
+    public void start(){
+        engine.start;
+    }
+}
+
+public class Engine{
+    public void start(){
+        // Regra de negócio
+    }
+}
+~~~~
+
+O código não permite que utilize-se de um outro tipo de Engine, está fortemente acoplado, para resolver isso, aplica-se uma interface de Engine.
+
+~~~~Java
+public interface Engine{
+    public void start();
+}
+
+public class GasolinaEngine implements Engine{
+    public void start();
+}
+
+public class DiselEngine implements Engine{
+    public void start();
+}
+
+public class Carro{
+    private Engine engine;
+    public Carro(Engine engine){
+        this.engine = engine;
+    }
+
+    public void start(){
+        engine.start;
+    }
+}
+~~~~

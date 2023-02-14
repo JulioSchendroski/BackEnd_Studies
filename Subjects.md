@@ -33,7 +33,7 @@
 * ~Status (Familia 2xx, 3xx, 4xx, 5xx)~
 
 ### Gitflow
-* Master / develop /  release /  hotfix /  PRs
+* ~Master / develop /  release /  hotfix /  PRs~
 
 ### Arquitetura em Microserviço
 * Comunicação entre microserviços (Sync [Rest] endpoint / Assync [Mensageria])

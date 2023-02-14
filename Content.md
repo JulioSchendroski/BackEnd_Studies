@@ -8,7 +8,7 @@ Construção      | Builder, Factory, Abstract Factory
 Operações      | Strategy, Command, Interpreter
 Extensões | Decorator, Iterator, Visitor
 
-### **Strategy :**
+## **Strategy :**
 Strategy permite que os algoritmos mudem independentemente entre os clientes que os utilizam.
 
 * Padrão **Comportamental**.
@@ -25,7 +25,7 @@ Quando usar?
 * Classes relacionadas forem diferentes **apenas** no **comportamento**.
 * Quando uma classe define muitos **comportamentos**, e estes aparecem na forma de **condicional** em suas operações.
 
-### **Factory :**
+## **Factory :**
 Factory Method permite que uma classe delegue a responsabilidade de instanciamento às subclasses
 
 * Design Pattern de **Construção**.
@@ -37,7 +37,7 @@ Factory Method permite que uma classe delegue a responsabilidade de instanciamen
 ![Estrutura Facotry](imgs/factory.png)
 
 
-### **Abstract Factory :**
+## **Abstract Factory :**
 * Design Pattern de **Criação**.
 * É uma Factory Method, porém composto por **múltiplas Factory Methods**.
 * Visa agrupar família de produtos compativeis compativeis, criando assim uma factory divida por grupos.
@@ -48,12 +48,12 @@ Algumas consequência são levadas em conta, dentre delas:
 
 ![Estrutura Abs.Facotry](imgs/abs_factory.png)
 
-### **Reflection :**
+## **Reflection :**
 Vale notar que Reflection **não é considerado um Design Pattern.**
 * Manipulador de classes, obter informações de classes, etc…
 * Utilizado em tempo de execução do programa.
 
-### **Dep. Injection :**
+## **Dep. Injection :**
 Podemos dizer que a injeção de dependência é uma inversão de controle, uma vez que não mais seu business realiza a instanciação de classes, mas sim quem está consumindo a classes, passando a responsabilidade de definir qual instância será utilizada para um “agente externo”.
 
 * Uso benéfico de interfaces.
@@ -64,7 +64,7 @@ Podemos dizer que a injeção de dependência é uma inversão de controle, uma 
 ![Estrutura Dep.Inject](imgs/dep_inject.png)
 
 
-### **Chain Of Responsibility :**
+## **Chain Of Responsibility :**
 * É usado quando uma requisição precisa passar por uma **sequência de operações** até ser totalmente tratada.
 * Desacopla quem envia a requisição de quem vai tratar a requisição.
 * Muito utilizado em requisição HTTP.
@@ -106,7 +106,7 @@ Módulo AOP → Implementação para programação orientada a aspectos, em resu
 
 Test → Testes unitários utilizando JUnit, e testes de integração.
 
-### **Beans :** 
+## **Beans :** 
 Dentro do Spring Framework, faz-se utilização da injeção de dependência, na qual a implementação está presente no Core Container. Quando a aplicação é executada, as configurações pré-definidas em classes ou arquivos XML são lidas e criadas através da inversão de controle, sendo criadas e destruídas durante a execução do projeto. Essas dependências são chamadas de Beans dentro do contexto Spring.
 
 ![Estrutura Bean.Life](imgs/bean_life.png)
@@ -191,10 +191,10 @@ public class ProdutoService{
 }
 ~~~~
 
-### **Spring Boot :**
+## **Spring Boot :**
 O Spring Boot é uma extensão do Spring, utilizando bases do Spring para iniciar uma aplicação de uma forma bem mais simplificada, também já trazendo um servidor embutido.
 
-### **API REST e RESTful :**
+## **API REST e RESTful :**
 É uma aplicação cliente/servidor que envia e recebe dados através do protocolo HTTP, utilizando XML e Json para comunicação, permitindo que diferentes sistemas como desktop e mobile consumam a mesma API.
 Uma API pode ser considerada RESTful, quando utiliza-se de conceitos arquiteturais REST.
 
@@ -237,34 +237,6 @@ public interface ProdutoRepository extends JpaRepository<ProdutoModel, UUID>{
 
 **Criando o Controller utilizando Beans, assim uma injeção de dependência do Controller quando necessário.**
 
-<!-- ~~~~Java
-@RestController
-public class ProdutoController{
-    @Autowired
-    ProdutoRepository produtoRepository;
-
-    //Métodos GET ALL e GET ONE
-    @GetMapping("/produtos")
-    public ReponseEntity<List<ProdutoModel>> getAllProdutos(){
-        return new ResponseEntity<List<ProdutoModel>>(produtoRepository.findAll(), HttpStatus.OK);
-    }
-
-    @GetMapping("/produtos/{id}")
-    public ReponseEntity<ProdutoModel>getOneProduto(@PathVariable(value="id") UUID id){
-        Optional<ProdutoModel> produtoOptional = produtoRepository.findById(id);
-        if(produtoOptional.isEmpty()){
-            return new ReponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<ProdutoModel>(produtoOptional.get(), HttpStatus.OK);
-    }
-
-    //POST, DELETE, PUT
-    @PostMapping("/produtos")
-    public ResponseEntity<ProdutoModel> saveProduto(@RequestBody @Valid ProdutoModel produto){
-        return new ResponseEntity<ProdutoModel>(produtoRepository.save(produto), HttpStatus.CREATED);
-    }
-}
-~~~~ -->
 
 *Obtendo todos produtos findAll()*
 ~~~~Java
@@ -351,7 +323,7 @@ public class ProdutoController{
 ~~~~
 
 
-### **Java JPA :**
+## **Java JPA :**
 Java Persistence API (JPA) é a especificação padrão da plataforma Java EE para mapeamento objeto-relacional e persistência de dados.
 
 # **SOLID**
@@ -620,3 +592,55 @@ public class Carro{
     }
 }
 ~~~~
+
+# **REDES**
+
+## **HTTP**
+O protocolo HTTP está na camada de aplicação, de modo que cabe a aplicação implementar o protocólo como ferramente da sistema.
+Além disso, o protocólo HTTP funciona apenas com a utilização de outros dois protócolos:
+
+* TCP → Transmission Control Protocol, resonsável pela transferência das informações.
+* IP → Internet Protocol, Encaminhamento dos dados.
+
+HTTP segue o modelo de **Request** e **Response**, além de uma conexão não persistente, sendo necessário abrir sempre uma nova conexão entre cliente e servidor toda vez que uma requisição acontecer.
+
+Dentro de uma requisição, contém três conteúdos:
+* Linha de Pedido: Identificador (POST, GET, DELETE, PUT...), URI, Versão do protocolo.
+* Cabeçalho. Cookies, etc..
+* Corpo/Mensagem: Dados da requisição
+
+Como citado, há diferentes tipos de identificadores de requisição, os mais utilizado são POST, GET, DELETE E PUT:
+
+* GET → Requisições simples, contém apenas as informações obtidas, e não deve apresentar modificação nos dados (apenas "visualiza").
+* POST → Modifica o dado desejado criando um novo item daquela entidade, como por exemplo a criação de um novo funcionário.
+* PUT → Modifica o dado desejado alterando um item já existente.
+* DELETE → Remove um dado ja existente.
+
+
+## **Status**
+O código de status dentro do HTTP corresponde a resposta se a requisição foi bem sucedida ou não.
+
+É definido através de familias a quais os determinados códigos pertencem, sendo dividido em 5 familias os status.
+
+1. (1xx) Informacional → Indica que o pedido foi recebido e está sendo processado.
+2. (2xx) Sucesso → Significa que o pedido de requisição foi recebido com sucesso, aceito e processado.
+3. (3xx) Redirecionamento → Ações adicionais precisam ser completadas / informadas para completar o pedido.
+4. (4xx) Client Error → Indica que o pedido está com informações incorretas e não é possível ser processado.
+5. (5xx) Server Error → O servidor não conseguiu processar o pedido.
+
+[Verifique cada status em específico clicando aqui](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status?retiredLocale=pt-PT#information_responses)
+
+
+# **GITFLOW**
+O Gitflow é um **workflow** (modelo, estratégia) que ajuda na organização no versionamento do código, organizando as **branchs** dentro do repositório, deixando bem definido novas **features** e **releases**.
+
+Separamos o gitflow em 2 tipos de branchs:
+1. Master → Contém o projeto principal. Vale notar que a cada merge da Release, é necessário criar uma nova tag (v1.0, v1.1, etc...).
+2. Develop → É criada a partir da Master, irá conter todas novas features estáveis e releases. que serão mergeadas.
+
+Branchs de suporte:
+1. Feature → Para cada nova feature, uma nova branch é criada a partir da Develop, e voltará via merge para a develop quando estiver estável.
+2. Release → A branch Release irá conter todas novas features funcionais, servindo de suporte e ponte entre Develop e Master 
+3. Hotfix → Utiliazado em uma situação emergencial, quando finalizado, é mergeado direto na Master.
+
+![Gitflow](imgs/gitlflow.png)

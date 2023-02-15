@@ -643,4 +643,51 @@ Branchs de suporte:
 2. Release → A branch Release irá conter todas novas features funcionais, servindo de suporte e ponte entre Develop e Master 
 3. Hotfix → Utiliazado em uma situação emergencial, quando finalizado, é mergeado direto na Master.
 
-![Gitflow](imgs/gitlflow.png)
+![Gitflow](imgs/gitflow2.jpg)
+
+### **O que é o Pull Request?**
+
+É um processo que notifica os membros desenvolvedores do projeto de que uma nova release foi completa, e esta release está aberta para verificação e possiveis futuras modificações. Basicamente é uma review do código antes de ser mergeada para a branch Master.
+
+
+# **Arquitetura de Microservices**
+**Arquitetura monolítica**: Baseia-se em vários módulos e funcionalidades que compõe um único softwares, um grande bloco de código, na qual tem todas as funcionalidades e regras de negócios do sistema. Usualmente uma aplicação monolítica também possui apenas uma base de dados que armazena informações de todo o sistem. Um exemplo de arquitetura monolítica é o sistema ERP.
+
+![Gitflow](imgs/monolitc.png)
+
+
+Uma arquitetura de microsserviços é construiído a partir de vários serviços pequenos e com objetivo claro, sendo independentes-entre si, para cada módulo, tem sua própria base de dados e regras de negócios específicas para cada módulo.
+
+![Gitflow](imgs/micross.png)
+
+
+Uma grande vatangem da arquitetura de microsserviço em relação a monolítica é a facilidade de se acrescentar novas features, uma vez que cada feature é específica de cada módulo, e interfere na regra de negócio apenas daquele modulo. Outra grande vatagem é que em caso de alguma mudança ou manutenção de um módulo em microsserviço, apenas aquele módulo é pausado enquanto os outros podem continuar sendo executados da mesma maneira, existindo um forte desacoplamento entre os serviços.
+
+# **Comunicação entre Microservices**
+Na comunicação entre microsserviços, existem dois tipos de comunicações que podem ser realizadas entre cada micrisserviço, essas comunicações são:
+* Síncrona.
+* Assícrona.
+
+**Comuinicação Síncrona:** Quando trata-se de comunicação síncrona, a primeira ideia que tem que vir em mente é o protocolo **HTTP**, esse protocolo irá enviar uma requisição e receber uma resposta, utilizando o padrão **REST** (Em Spring Boot, no Spring Framework existe uma biblioteca específica para utilizar-se de comuniação assíncrona, chamada de Spring Cloud Netflix, realizando todo o orquestramento entre os microsserviços).
+
+![Sincrona](imgs/comunicacao_sincrona.png)
+
+Observe o exemplo mostrado, a aplicação Angular é o nosso cliente, ou seja, ela irá realizar requisições para o sistema com arquitetura de microsserviço. A requisição é feita para um microsserviço central (Gateway), uma vez que ele irá receber todas requisições da aplicação em uma única porta, para que ele determine qual microsserviço irá receber a requisição.
+
+**Comuinicação Assíncrona:** Na comunicação assíncrona de microsserviços faz o uso de outro protocolo, chamdo de **AMQP**, através desse protocolo o microsserviço A envia uma mensagem para o microsserviço B, o microsserviço B não precisa responder a mensagem, apenas avisar o microsserviço A de que foi ouvido com sucesso a mensagem, continuando o processamento normalmente do sistema.
+
+Para comunicação assíncrona, é utilizado mensagerias como **RabbitMq** e **Kafka**, sendo os mais conhecidos. Dentro do Spring Boot existe a biblioteca chamada Spring Cloud Stream.
+
+![Sincrona](imgs/comunicacao_assincrona.png)
+
+No exemplo acima, temos uma requisição da interface Angular de alteração de nota de um aluno, é realizado uma requisição de PUT para alterar, na qual o microsserviço Gateway realiza o redirecionamento da requisição para o microsserviço de Controle de Nota para alterar no banco de dados, porém por regra de negócio, toda vez que uma alteração é feita em Nota, deve-se enviar um email para o aluno de que a nota foi alterada.
+
+Para isso o microsserviço de Controle de Nota envia uma mensagem através do protocolo AMQP avisando de que o microsserviço de Envio de Email deve realiazr o envio.
+
+Oque difere entre o síncrono e o assíncrono, é de que o Controle de Email não precisa devolver uma resposta para o Controle de Nota com a notificação de email, apenas uma verificação de que foi escutado a mensagem e depois o próprio microsserviço de Controle de Email realiza seu procedimento de envio.
+
+Essa mensagem que o Controle de Nota envia para o Controle de Email é chamada de **Fila**
+
+Abaixo contém um roadmap de microsserviços.
+
+![Sincrona](imgs/roadmap.png)

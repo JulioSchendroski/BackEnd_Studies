@@ -1,6 +1,6 @@
 [Docs](https://docs.google.com/document/d/1lVc5Q2sH3r0I_WMwkMIwU-pHj31VkWsCqXa3m49qAvE/edit).
 
-# Estudos Relacionados a Jr.
+# Estudos Relacionados a Dev Back-end.
 
 ### Linguagem:
 * ~Java~

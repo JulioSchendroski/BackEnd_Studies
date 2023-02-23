@@ -691,3 +691,52 @@ Essa mensagem que o Controle de Nota envia para o Controle de Email é chamada d
 Abaixo contém um roadmap de microsserviços.
 
 ![Sincrona](imgs/roadmap.png)
+
+
+# **Deploy**
+Podemos definir *deploy* como implantar, disponibilizar ou simplemeste **colocar no ar**.
+
+O *deploy* pode ser:
+* Manual → FTP (exemplo).
+* Parcialmente Automatizado → Push (exemplo).
+* Completamente Automatizado → Pode ser chamado de deploy contínuo, Jenkins (exemplo).
+
+
+# **Callback**
+
+O *callback* pode ser traduzido literalmente como *chamada de retorno* ou uma analogia como *me liga de volta rsrs*.
+
+É uma função que é executada quando algum evento acontecer ou quando algum código é chegado em determinado estado desejado. 
+
+Usualmente ela é assíncrona, e passada como argumento de outra função.
+
+Vejamos abaixo um exemplo utilizando uma função em jQuery
+~~~~jQuery
+$(selector).hide(speed, callback);
+~~~~
+
+Observamos que a função hide espera um argumento que indica velocidade em que a tag irá se esconder, e logo após a ação de hide, é executado algo, esse algo chamamos de callback.
+
+~~~~jQuery
+$('#minhaDiv').hide(2000, mensagem());
+
+function mensagem(){
+    alert('div sumiu');
+}
+~~~~
+
+
+
+# **Clean Architecture**
+
+A arquitetura limpa é idealização para uma construção de um software robusto, para isso é definido um conjunto de regras para a padronização para realizar um único objetivo de **separar as preocupações do software**. 
+
+Dividi-se a arquitetura em camadas, camadas de regras de negócios e de interfaces de usuários. Possúem as seguintes características.
+
+* **Independência de Framework** → Implica que a arquitetura não deve depender de nenhuma ferramente externa a línguagem (frameworks, bibliotecas), devem ser anexas ao projeto e não baseadas nelas.
+* **Testabilidade** → As regras de negócio do projeto devem ter a possibilidade de serem testadas sem a necessidade de um banco de dados, interfaces, etc...
+* **Independencia da Interface do Usuário** → A interface do usuário deve ser facilmente substituídas sem a necesscidade de alterar as regras de negócios.
+* **Independência do Banco de Dados** → Os bancos de dados não estão ligados ao projeto, podem ser alterados sem alterar as regras de negócio, exemplo de mudar de Postgres para MySql.
+* **Independência de Qualquer Elemento Externo** → As regras de negócios não devem saber **NADA** das interfaces com o mundo externo.
+
+![CleanArq](imgs/CleanArchitecture.jpg)

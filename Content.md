@@ -593,6 +593,21 @@ public class Carro{
 }
 ~~~~
 
+# **Clean Architecture**
+
+A arquitetura limpa é idealização para uma construção de um software robusto, para isso é definido um conjunto de regras para a padronização para realizar um único objetivo de **separar as preocupações do software**. 
+
+Dividi-se a arquitetura em camadas, camadas de regras de negócios e de interfaces de usuários. Possúem as seguintes características.
+
+* **Independência de Framework** → Implica que a arquitetura não deve depender de nenhuma ferramente externa a línguagem (frameworks, bibliotecas), devem ser anexas ao projeto e não baseadas nelas.
+* **Testabilidade** → As regras de negócio do projeto devem ter a possibilidade de serem testadas sem a necessidade de um banco de dados, interfaces, etc...
+* **Independencia da Interface do Usuário** → A interface do usuário deve ser facilmente substituídas sem a necesscidade de alterar as regras de negócios.
+* **Independência do Banco de Dados** → Os bancos de dados não estão ligados ao projeto, podem ser alterados sem alterar as regras de negócio, exemplo de mudar de Postgres para MySql.
+* **Independência de Qualquer Elemento Externo** → As regras de negócios não devem saber **NADA** das interfaces com o mundo externo.
+
+![CleanArq](imgs/CleanArchitecture.jpg)
+
+
 # **REDES**
 
 ## **HTTP**
@@ -649,6 +664,38 @@ Branchs de suporte:
 
 É um processo que notifica os membros desenvolvedores do projeto de que uma nova release foi completa, e esta release está aberta para verificação e possiveis futuras modificações. Basicamente é uma review do código antes de ser mergeada para a branch Master.
 
+# **Deploy**
+Podemos definir *deploy* como implantar, disponibilizar ou simplemeste **colocar no ar**.
+
+O *deploy* pode ser:
+* Manual → FTP (exemplo).
+* Parcialmente Automatizado → Push (exemplo).
+* Completamente Automatizado → Pode ser chamado de deploy contínuo, Jenkins (exemplo).
+
+
+# **Callback**
+
+O *callback* pode ser traduzido literalmente como *chamada de retorno* ou uma analogia como *me liga de volta rsrs*.
+
+É uma função que é executada quando algum evento acontecer ou quando algum código é chegado em determinado estado desejado. 
+
+Usualmente ela é assíncrona, e passada como argumento de outra função.
+
+Vejamos abaixo um exemplo utilizando uma função em jQuery
+~~~~jQuery
+$(selector).hide(speed, callback);
+~~~~
+
+Observamos que a função hide espera um argumento que indica velocidade em que a tag irá se esconder, e logo após a ação de hide, é executado algo, esse algo chamamos de callback.
+
+~~~~jQuery
+$('#minhaDiv').hide(2000, mensagem());
+
+function mensagem(){
+    alert('div sumiu');
+}
+~~~~
+
 
 # **Arquitetura de Microservices**
 **Arquitetura monolítica**: Baseia-se em vários módulos e funcionalidades que compõe um único softwares, um grande bloco de código, na qual tem todas as funcionalidades e regras de negócios do sistema. Usualmente uma aplicação monolítica também possui apenas uma base de dados que armazena informações de todo o sistem. Um exemplo de arquitetura monolítica é o sistema ERP.
@@ -693,50 +740,51 @@ Abaixo contém um roadmap de microsserviços.
 ![Sincrona](imgs/roadmap.png)
 
 
-# **Deploy**
-Podemos definir *deploy* como implantar, disponibilizar ou simplemeste **colocar no ar**.
+# **RabbitMQ**
 
-O *deploy* pode ser:
-* Manual → FTP (exemplo).
-* Parcialmente Automatizado → Push (exemplo).
-* Completamente Automatizado → Pode ser chamado de deploy contínuo, Jenkins (exemplo).
+O RabbitMQ que atua como *messsage broker*, ou seja, atua como intermediario na gestão de envios e recebimentos de mensagens de uma ou mais aplicações. O RabbitMQ trabalha com o envio dos principais padrões de protocolos (HTTP, AMQP, etc..) 
 
+RabbitMQ é um gerenciador de mensageria, utilizando o protocolo *AMQP*, que consiste no envio e recebimento de mensagens de forma assíncrona, na qual a mensagem é colocado em uma *fila*, esperando a sua vez de ser executado. 
 
-# **Callback**
+O funcionamento do RabbitMQ se da na seguinte maneira → O Produtor publica (publish) a mensagem e envia para a fila, e o Consumidor assina (subscribe) para receber aquele tipo de mensagem. A fila ao terminar de processar conhece para quem enviar a mensagem.
 
-O *callback* pode ser traduzido literalmente como *chamada de retorno* ou uma analogia como *me liga de volta rsrs*.
+A mensagem se divide em duas partes:
+* Label → Rótulo da mensagem, é através da label que o RabbitMQ conecta o Produtor com o Consumidor.
+* Payload → Conteúdo da mensagem.
 
-É uma função que é executada quando algum evento acontecer ou quando algum código é chegado em determinado estado desejado. 
+Vale lembrar que o Produtor não envia diretamente a mensagem para a fila, ele envia a mensagem para um Exchange e esse por sua vez é responsável por encaminhar para o Consumidor.
 
-Usualmente ela é assíncrona, e passada como argumento de outra função.
+![Rabbit](imgs/rabbitMQ.png)
 
-Vejamos abaixo um exemplo utilizando uma função em jQuery
-~~~~jQuery
-$(selector).hide(speed, callback);
-~~~~
+# **SQS**
 
-Observamos que a função hide espera um argumento que indica velocidade em que a tag irá se esconder, e logo após a ação de hide, é executado algo, esse algo chamamos de callback.
+*Simple Queue Service*, o funcionamento é através de filas, porém ao invés de ter um gerenciador dessa filas assim como no RabbitMQ, o Produtor envia mensagens para o SQS Queue, e os Consumidores realizam um *"pull"* dessas mensagens, ou seja, os próprios Consumidores que estão escutando irão puxar as mensagens para sí, a fila não envia automaticamente a mensagem.
 
-~~~~jQuery
-$('#minhaDiv').hide(2000, mensagem());
-
-function mensagem(){
-    alert('div sumiu');
-}
-~~~~
+![Sqs](imgs/sqs.png)
 
 
+# **Kafka**
 
-# **Clean Architecture**
+Pode ser denomidada de uma plataforma de *streaming de eventos*. Também podemos definir o Kafka como um barramento de mensagens que possuir alto processamento, porém trabalha apenas com mensagens primitivas (strings) e mensagens binárias.
 
-A arquitetura limpa é idealização para uma construção de um software robusto, para isso é definido um conjunto de regras para a padronização para realizar um único objetivo de **separar as preocupações do software**. 
+* Event Streaming → Forma de capturar, analisar e responder eventos em tempo real. Garante o fluxo contínuo de dados.
 
-Dividi-se a arquitetura em camadas, camadas de regras de negócios e de interfaces de usuários. Possúem as seguintes características.
+Normalmente o Kafka é utilizado em dois tipo de aplicações:
+1. As que necessitam de pipeline de streaming em tempo real, que obtém dados de sitemas / aplicativos de maneira confiável.  
+2. As que necessitam de pipeline de streaming em tempo real, que transformam ou reagem ao fluxo de dados.
 
-* **Independência de Framework** → Implica que a arquitetura não deve depender de nenhuma ferramente externa a línguagem (frameworks, bibliotecas), devem ser anexas ao projeto e não baseadas nelas.
-* **Testabilidade** → As regras de negócio do projeto devem ter a possibilidade de serem testadas sem a necessidade de um banco de dados, interfaces, etc...
-* **Independencia da Interface do Usuário** → A interface do usuário deve ser facilmente substituídas sem a necesscidade de alterar as regras de negócios.
-* **Independência do Banco de Dados** → Os bancos de dados não estão ligados ao projeto, podem ser alterados sem alterar as regras de negócio, exemplo de mudar de Postgres para MySql.
-* **Independência de Qualquer Elemento Externo** → As regras de negócios não devem saber **NADA** das interfaces com o mundo externo.
+O Kafka possui Produtores que enviam mensagens para um *cluster* do Kafka, essa mensagem é redirecionada para um *broker* que possui um *tópico* que é dividio em várias particões. Os Consumidores são inscritos nessas partições, e eles devem realizar um *pull* para buscar essas mensagens dentro das partições.
 
-![CleanArq](imgs/CleanArchitecture.jpg)
+Os tópicos são:
+* *Multi-Producer* → Pode ter de O a N Produtores escrevendo eventos. 
+* *Multi-Subscriber* → Pode ter de O a N Consumidores incritos no tópico.
+
+![Rabbit](imgs/Kafka.png)
+
+# **Diferenças entre RabbitMQ e Kafka**
+
+No RabbitMQ existe o conceito de Consumidores competitivos, ou seja, dois ou mais Consumidores querem consumir uma fila, e o RabbitMQ irá enviar apenas para um Consumidor.
+
+Já no Kafka, todos Consumidores inscritos em um tópico, estando em partições diferentes, podem consumir a mesma mensagem. São chamado de múltiplos Consumidores.
+
+Outro ponto, é o RabbitMQ é apenas um intermediador de mensagens, ou seja, ele não guarda nenhuma mensagem. No Kafka possui um log na qual armazena as mensagem por determinado tempo de forma customizavel

@@ -1,5 +1,3 @@
-[Docs](https://docs.google.com/document/d/1lVc5Q2sH3r0I_WMwkMIwU-pHj31VkWsCqXa3m49qAvE/edit).
-
 # Estudos Relacionados a Dev Back-end.
 
 ### Linguagem:
@@ -23,7 +21,7 @@
 
 ### Arquitetura de Software:
 * ~SOLID~
-* Clean Code
+* ~Clean Code~
 
 ### Frameworks:
 * ~Spring (Spring Boot, Spring Data, JPA)~
@@ -36,11 +34,11 @@
 * ~Master / develop /  release /  hotfix /  PRs~
 
 ### Arquitetura em Microserviço
-* Comunicação entre microserviços (Sync [Rest] endpoint / Assync [Mensageria])
+* ~Comunicação entre microserviços (Sync [Rest] endpoint / Assync [Mensageria])~
 
 ### Mensageria
-* Fila (RabbitMq, Sqs)
-* Tópico (Kafka, Kinesis)
+* ~Fila (RabbitMq, Sqs)~
+* ~Tópico (Kafka, Kinesis)~
 
 ### CI / CD 
 * Jenkis (OpenSource)

@@ -1,7 +1,7 @@
 # Estudos Relacionados a Dev Back-end.
 
 ### Linguagem:
-* ~Java~
+* ~~Java
 * Node
 * ~Python~
 
@@ -20,7 +20,7 @@
 * ~Dep. Injection~
 
 ### Arquitetura de Software:
-* ~SOLID~
+* ~~SOLID
 * ~Clean Code~
 
 ### Frameworks:
@@ -50,7 +50,7 @@
 * Docker-Compose (Agrupamento de serviço em container, fácil configurar)
 
 ### Banco de Dados
-* Relacional (MySql, Oracle)
+* ~~Relacional (MySql, Oracle)
 * Não Relacional (MongoDB, DynamoDB)
 * Index
 * Exemplo de Modelagem (Pessoa e Endereço, por exemplo)

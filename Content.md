@@ -788,3 +788,18 @@ No RabbitMQ existe o conceito de Consumidores competitivos, ou seja, dois ou mai
 Já no Kafka, todos Consumidores inscritos em um tópico, estando em partições diferentes, podem consumir a mesma mensagem. São chamado de múltiplos Consumidores.
 
 Outro ponto, é o RabbitMQ é apenas um intermediador de mensagens, ou seja, ele não guarda nenhuma mensagem. No Kafka possui um log na qual armazena as mensagem por determinado tempo de forma customizavel
+
+
+# **Containers**
+
+São uma forma de virtualização, que permite usar múltiplos sistemas operacionais em apenas um sistema operacional. Porém difere muito de uma máquina virtual, uma vez que **cada** sistema opercional utilizado, faz o uso do **mesmo** kernel do linux.
+
+A ideia é que cada container faça **uma** coisa, e assuma apenas **uma** responsabilidade.
+
+
+# **Docker**
+
+Docker oferece containers virtuais, que empacotam suas aplicações e dependências para dentro de um containers, tornando-se portável para qualquer máquina ou servidor.
+
+Todas as configurações que a aplicação necessita para a portabilidade é definida uma vez, e é chamada de **imagem**, uma imagem pode ser definida como um *modelo* que é configurado o sistema operacional, dependências e regras e disponibilizada para uso nos containers, ou seja, é executado uma imagem docker dentro de um ou mais containers.
+

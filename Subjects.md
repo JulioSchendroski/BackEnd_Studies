@@ -40,14 +40,14 @@
 * ~Fila (RabbitMq, Sqs)~
 * ~Tópico (Kafka, Kinesis)~
 
+### Docker
+* Dockerfile (Geração de imagem personalizada)
+* Docker-Compose (Agrupamento de serviço em container, fácil configurar)
+
 ### CI / CD 
 * Jenkis (OpenSource)
 * CircleCL (Paga)
 * GitHub Actions
-
-### Docker
-* Dockerfile (Geração de imagem personalizada)
-* Docker-Compose (Agrupamento de serviço em container, fácil configurar)
 
 ### Banco de Dados
 * ~Relacional (MySql, Oracle)~

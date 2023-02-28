@@ -608,7 +608,7 @@ Dividi-se a arquitetura em camadas, camadas de regras de negócios e de interfac
 ![CleanArq](imgs/CleanArchitecture.jpg)
 
 
-# **REDES**
+# **Redes**
 
 ## **HTTP**
 O protocolo HTTP está na camada de aplicação, de modo que cabe a aplicação implementar o protocólo como ferramente da sistema.
@@ -646,7 +646,7 @@ O código de status dentro do HTTP corresponde a resposta se a requisição foi 
 [Verifique cada status em específico clicando aqui](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status?retiredLocale=pt-PT#information_responses)
 
 
-# **GITFLOW**
+# **Gitflow**
 O Gitflow é um **workflow** (modelo, estratégia) que ajuda na organização no versionamento do código, organizando as **branchs** dentro do repositório, deixando bem definido novas **features** e **releases**.
 
 Separamos o gitflow em 2 tipos de branchs:
@@ -803,3 +803,6 @@ Docker oferece containers virtuais, que empacotam suas aplicações e dependênc
 
 Todas as configurações que a aplicação necessita para a portabilidade é definida uma vez, e é chamada de **imagem**, uma imagem pode ser definida como um *modelo* que é configurado o sistema operacional, dependências e regras e disponibilizada para uso nos containers, ou seja, é executado uma imagem docker dentro de um ou mais containers.
 
+## **Docker Compose**
+
+A ideia do Docker Compose é ter uma solução "multi-container" que é possível definir os serviços que deseja executar, e cada serviço é um container. Em resumo, o Docker Compose é uma forma de gerenciar multiplos containers

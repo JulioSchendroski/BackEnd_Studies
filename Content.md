@@ -805,4 +805,47 @@ Todas as configurações que a aplicação necessita para a portabilidade é def
 
 ## **Docker Compose**
 
-A ideia do Docker Compose é ter uma solução "multi-container" que é possível definir os serviços que deseja executar, e cada serviço é um container. Em resumo, o Docker Compose é uma forma de gerenciar multiplos containers
+A ideia do Docker Compose é ter uma solução "multi-container" que é possível definir os serviços que deseja executar, e cada serviço é um container. Em resumo, o Docker Compose é uma forma de gerenciar multiplos containers.
+
+# **CI / CD**
+
+O CI / CD é uma prática feita para entregar softwares com frequência aos clientes, levando a automação nas etapas de desenvolvimento de aplicativos.
+
+* **Integração Contínua (CI)**: essa parte garante que o novo código seja mesclado com o código existente e que os desenvolvedores verifiquem os bugs antes de fazer a introdução em um ambiente de produção.
+
+* **Implantação Contínua (CD)**: essa parte significa que os desenvolvedores podem liberar seu trabalho sem esperar pela aprovação manual de outros membros da equipe ou gerentes. Esse fluxo de trabalho reduz o tempo de desenvolvimento, o que se traduz em maiores níveis de produtividade nas organizações.
+
+Um pipeline de CI/CD é um conjunto de ferramentas de software usadas para automatizar o processo de construção e lançamento de produtos, indica uma sequência de fases para realização até que a versão final de um software esteja disponível.
+
+![CICD](imgs/cicd.png)
+
+## **DevOps**
+
+DevOps é uma abordagem automatizada e design de plataforma que tem como objetivo aumentar a capacidade de resposta às mudanças por meio de entregas de serviços rápidas e de alta qualidade. A maioria das vezes, o pipeline CI / CD já integra a estrutura DevOps.
+
+## **Jenkis**
+
+Jenkis é um sistema de automação **OpenSource**, que realiza dos mais diversos tipos de tarefas, muito utilizado em processos CI / CD.
+
+O Jenkis faz na prática as seguintes tarefas:
+* Checkout de aplicações em um repositório logo após um commit.
+* Executa processos de integrações contínuas (build, testes, performance, etc...).
+* Gera logs apresentando os processos executados.
+* Realiza deploy de forma automatizada.
+
+
+## **CircleCL**
+
+CircleCI é uma ferramenta que permite que as equipes liberem rapidamente o código em que confiam, automatizando o processo de compilação, teste e entrega para aplicativos moveis e da web, na nuvem ou em um próprio servidor privado. Ou seja, **CircleCI é uma ferramenta de integração contínua**
+
+* Um grande benefício do CircleCL → Pode ser configurado para executar pipelines muito complexos com eficiência, com cache sofisticado, cache da camada docker, classes de recursos para execução em máquinas mais rápidas e preços de desempenho.
+
+## **GitHub Actions**
+
+GitHub Actions nada mais é do que um orquestrador de workflow. Através dele nós podemos construir um workflow com várias ações que vão descrever os passos necessários para compilar, testar, empacotar, criar releases e até fazer deploy do nosso sistema, facilitando muito o processo de automatização de builds e deploys dos nossos sistemas, pois tudo estará no mesmo repositório.
+
+# **Banco de Dados**
+
+# **MySQL**
+
+MySQL é um sistema open-source de gerenciamento de base de dados relacional, ele armazena essas informações em “tabelas” separadas e as conecta com “chaves”, daí o seu nome relacional.

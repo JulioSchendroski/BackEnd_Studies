@@ -1,0 +1,19 @@
+{
+  "name": "docker",
+  "version": "1.0.0",
+  "description": "Docker tutorial",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Docker",
+    "node",
+    "be-studies"
+  ],
+  "author": "Julio Schendroski",
+  "license": "ISC",
+  "dependencies": {
+    "express": "4.18.2"
+  }
+}

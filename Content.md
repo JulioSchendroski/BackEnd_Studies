@@ -848,4 +848,28 @@ GitHub Actions nada mais é do que um orquestrador de workflow. Através dele n�
 
 # **MySQL**
 
-MySQL é um sistema open-source de gerenciamento de base de dados relacional, ele armazena essas informações em “tabelas” separadas e as conecta com “chaves”, daí o seu nome relacional.
+MySQL é um sistema open-source de gerenciamento de base de dados relacional, ele armazena essas informações em “tabelas” separadas e as conecta com “chaves”, daí o seu nome relacional., configurando de maneira facilitada todos containers, evitando repetição de processo. Podemos considerear o Docker Compose um orquestrador de containers.
+
+* Qual a diferença entre Docker Compose e Kubernetes? → A principal diferença é que o **Kubernetes** orquestra containers em **multiplos computadores**, virutais ou físicos. Já o Docker Compose orquestra apenas dentro de **um único kernel**. 
+* Os arquivos de Docker Compose são em .yml (docker-compose.yml)
+
+~~~~
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+     - "8080:80"
+  db:
+    image: mysql
+    ports:
+    - "3306:3306"
+    environment:
+    - MYSQL_ROOT_PASSWORD=password
+    - MYSQL_USER=user
+    - MYSQL_DATABASE=demodb
+~~~~
+
+## **Docker File**
+
+O Docker File é um meio utilizado para criar as própias imagens personalizadas.

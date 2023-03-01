@@ -805,4 +805,28 @@ Todas as configurações que a aplicação necessita para a portabilidade é def
 
 ## **Docker Compose**
 
-A ideia do Docker Compose é ter uma solução "multi-container" que é possível definir os serviços que deseja executar, e cada serviço é um container. Em resumo, o Docker Compose é uma forma de gerenciar multiplos containers
+A ideia do Docker Compose é ter uma solução "multi-container" que é possível definir os serviços que deseja executar, e cada serviço é um container. Em resumo, o Docker Compose é uma forma de gerenciar multiplos containers, configurando de maneira facilitada todos containers, evitando repetição de processo. Podemos considerear o Docker Compose um orquestrador de containers.
+
+* Qual a diferença entre Docker Compose e Kubernetes? → A principal diferença é que o **Kubernetes** orquestra containers em **multiplos computadores**, virutais ou físicos. Já o Docker Compose orquestra apenas dentro de **um único kernel**. 
+* Os arquivos de Docker Compose são em .yml (docker-compose.yml)
+
+~~~~
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+     - "8080:80"
+  db:
+    image: mysql
+    ports:
+    - "3306:3306"
+    environment:
+    - MYSQL_ROOT_PASSWORD=password
+    - MYSQL_USER=user
+    - MYSQL_DATABASE=demodb
+~~~~
+
+## **Docker File**
+
+O Docker File é um meio utilizado para criar as própias imagens personalizadas.

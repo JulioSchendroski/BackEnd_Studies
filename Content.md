@@ -805,7 +805,31 @@ Todas as configurações que a aplicação necessita para a portabilidade é def
 
 ## **Docker Compose**
 
-A ideia do Docker Compose é ter uma solução "multi-container" que é possível definir os serviços que deseja executar, e cada serviço é um container. Em resumo, o Docker Compose é uma forma de gerenciar multiplos containers.
+A ideia do Docker Compose é ter uma solução "multi-container" que é possível definir os serviços que deseja executar, e cada serviço é um container. Em resumo, o Docker Compose é uma forma de gerenciar multiplos containers, configurando de maneira facilitada todos containers, evitando repetição de processo. Podemos considerear o Docker Compose um orquestrador de containers.
+
+* Qual a diferença entre Docker Compose e Kubernetes? → A principal diferença é que o **Kubernetes** orquestra containers em **multiplos computadores**, virutais ou físicos. Já o Docker Compose orquestra apenas dentro de **um único kernel**. 
+* Os arquivos de Docker Compose são em .yml (docker-compose.yml)
+
+~~~~yml
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+     - "8080:80"
+  db:
+    image: mysql
+    ports:
+    - "3306:3306"
+    environment:
+    - MYSQL_ROOT_PASSWORD=password
+    - MYSQL_USER=user
+    - MYSQL_DATABASE=demodb
+~~~~
+
+## **Docker File**
+
+O Docker File é um meio utilizado para criar as própias imagens personalizadas.
 
 # **CI / CD**
 
@@ -846,30 +870,107 @@ GitHub Actions nada mais é do que um orquestrador de workflow. Através dele n�
 
 # **Banco de Dados**
 
-# **MySQL**
+## **Index**
 
-MySQL é um sistema open-source de gerenciamento de base de dados relacional, ele armazena essas informações em “tabelas” separadas e as conecta com “chaves”, daí o seu nome relacional., configurando de maneira facilitada todos containers, evitando repetição de processo. Podemos considerear o Docker Compose um orquestrador de containers.
+Em banco de dados SQL, um **índice (ou index)** é uma **estrutura de dados** que permite realizar **pesquisas rápidas** em colunas específicas de uma tabela.
 
-* Qual a diferença entre Docker Compose e Kubernetes? → A principal diferença é que o **Kubernetes** orquestra containers em **multiplos computadores**, virutais ou físicos. Já o Docker Compose orquestra apenas dentro de **um único kernel**. 
-* Os arquivos de Docker Compose são em .yml (docker-compose.yml)
-
-~~~~
-version: '3'
-services:
-  web:
-    build: .
-    ports:
-     - "8080:80"
-  db:
-    image: mysql
-    ports:
-    - "3306:3306"
-    environment:
-    - MYSQL_ROOT_PASSWORD=password
-    - MYSQL_USER=user
-    - MYSQL_DATABASE=demodb
+Você seleciona as colunas que deseja incluir no índice e executa sua pesquisa no índice, ao invés do conjunto de dados inteiro.
+~~~~SQL
+CREATE INDEX nome_index
+ON nome_tabela (coluna1, coluna2, ...);
 ~~~~
 
-## **Docker File**
+Vale lembrar que o indíce pode ser único.
 
-O Docker File é um meio utilizado para criar as própias imagens personalizadas.
+~~~~SQL
+CREATE UNIQUE INDEX nome_index
+ON nome_tabela (coluna1, coluna2, ...);
+~~~~
+
+## **MySQL**
+
+MySQL é um sistema open-source de gerenciamento de base de dados relacional, ele armazena essas informações em “tabelas” separadas e as conecta com “chaves”, daí o seu nome relacional.
+
+~~~~SQL
+CREATE TABLE Pessoa (
+    id_pessoa INT NOT NULL  AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    idade int,
+    id_endereco int NOT NULL
+)
+
+CREATE TABLE Endereco (
+    id_endereco INT NOT NULL,
+    rua VARCHAR (100),
+    numero VARCHAR(5),
+    bairro VARCHAR (100),
+    cep VARCHAR (8)
+)
+
+ALTER TABLE Pessoa
+ADD PRIMARY KEY (id_pessoa);
+
+ALTER TABLE Endereco
+ADD PRIMARY KEY (id_endereco);
+
+ALTER TABLE Pessoa
+ADD FOREIGN KEY (id_endereco) REFERENCES Endereco(id_endereco);
+~~~~
+
+## **MongoDB**
+
+MongoDB é um banco de dados open source, orientado a documentos, e não-relacional, ou seja, é um NOSQL. Foi pensado para uma grande quantidade de dados, uma vez que ele suporta escalabilidade de melhor maneira do que bancos SQL, o MongoDB opera suas ações de forma assíncrona, permitindo que tenha um persistência extremamente otimizada.
+
+* A grande utilização do banco de dados não-relacional MongoDB é juntamente com o NodeJs, por conta da serialização com o JavaScript.
+
+RDBMS | MongoDB
+---------|----------
+Banco de Dados      | Banco de Dados
+Tabela      | Coleção
+Linha      | Documento
+Coluna      | Campo
+Junção de tabela | Documentos incorporados
+Chave Primária | Chave Primária (chave padrão _id fornecida pelo próprio mongodb)
+
+~~~~
+use admin
+db.createUser(
+    {
+        user: "Júlio",
+        pwd: "123",
+        roles : [{
+            role: "userAdminAnyDatabase",
+            db : "admin"
+        },
+        "readWriteAnyDatabase"
+        ]
+    }
+)
+
+db.usuarios.insert( {
+        nome: "Júlio Schendroski",
+        cidade: "Santa Bárbara D'Oeste",
+        estado: "São Paulo"
+    }
+)
+
+db.meudb.save(MeusDados)
+
+db.usuarios.remove( { estado: "São Paulo" } )
+~~~~
+
+## **DynamoDB**
+
+O Amazon DynamoDB, ou simplesmente DynamoDB, é um banco de dados chave-valor NoSQL, serverless (sem servidor), e totalmente gerenciado. Foi projetado para executar aplicações de alta performance em qualquer escala.
+
+DynamoDB oferece:
+* Segurança Integrada.
+* Backups contínuos.
+* Armazenamento em cache na memória
+* Ferramentas de exportação de dados.
+
+Sua estrutura tem semelhança com bancos de dados relacionais, apesar de ser uma banco de dado não relacional.
+* Tabelas → O DynamoDB armazena dados em tabelas.
+* Itens → Cada tabela contém zero ou mais itens, e cada item é um grupo de atributos identificável exclusivamente entre os outros itens.
+* Atributos → Um atributo é um elemento de dados fundamental, são similares a colunas em bancos de dados relacionais.
+

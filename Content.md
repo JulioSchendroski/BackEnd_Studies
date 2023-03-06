@@ -1,5 +1,4 @@
-# **DESIGN PATTERNS**
-<!-- ![tret](imgs/ds_patterns.png) -->
+# **Design Patterns**
 Intenção | Padrões
 ---------|----------
 Interfaces      | Adpater, Facade, Composite
@@ -8,52 +7,167 @@ Construção      | Builder, Factory, Abstract Factory
 Operações      | Strategy, Command, Interpreter
 Extensões | Decorator, Iterator, Visitor
 
-## **Strategy :**
-Strategy permite que os algoritmos mudem independentemente entre os clientes que os utilizam.
+* Os **padrões criacionais** fornecem mecanismos de criação de objetos que aumentam a flexibilidade e a reutilização de código.
+* Os **padrões estruturais** explicam como montar objetos e classes em estruturas maiores, enquanto ainda mantém as estruturas flexíveis e eficientes.
+* Os **padrões comportamentais** cuidam da comunicação eficiente e da assinalação de responsabilidades entre objetos.
 
-* Padrão **Comportamental**.
-* Quando precisa encapsular algoritmos similares para tomar alguma decisão.
+## **Factory Method**
+O Factory Method é um **padrão criacional** de projeto que fornece uma interface para criar objetos em uma superclasse, mas permite que as subclasses alterem o tipo de objetos que serão criados.
+![Factory](imgs/factory.png)
 
-Existem três entidades dentro do Strategy:
-1. Estratégia (Interface)
-2. Estratégia Concreta (Implementação do contrato da interface)
-3. Contexto (Quem utiliza a estratégia)
+O padrão Factory Method sugere que você substitua chamadas diretas de construção de objetos (usando o operador *new*) por chamadas para um método fábrica especial.
 
-![Estrutura Strategy](imgs/strategy1.png)
+### **Aplicabilidade**:
+*  Quando não souber de antemão os tipos e dependências exatas dos objetos com os quais seu código deve funcionar.
+*  Quando desejar fornecer aos usuários da sua biblioteca ou framework uma maneira de estender seus componentes internos.
+*  Quando deseja economizar recursos do sistema reutilizando objetos existentes em vez de recriá-los sempre.
 
-Quando usar?
-* Classes relacionadas forem diferentes **apenas** no **comportamento**.
-* Quando uma classe define muitos **comportamentos**, e estes aparecem na forma de **condicional** em suas operações.
+### **Prós e contras**
+Prós | Contras
+---------|----------
+Você evita acoplamentos firmes entre o criador e os produtos concretos. | O código pode se tornar mais complicado, pois você precisa introduzir muitas subclasses novas para implementar o padrão. O melhor cenário é quando você está introduzindo o padrão em uma hierarquia existente de classes criadoras.
+Princípio de responsabilidade única. Você pode mover o código de criação do produto para um único local do programa, facilitando a manutenção do código. |
+Princípio aberto/fechado. Você pode introduzir novos tipos de produtos no programa sem quebrar o código cliente existente. | 
 
-## **Factory :**
-Factory Method permite que uma classe delegue a responsabilidade de instanciamento às subclasses
-
-* Design Pattern de **Construção**.
-* Desacopla o cliente dos tipos de produtos específicos.
-*Remove da classe cliente todo conhecimento sobre as subclasses de produtos.
-* Estende o programa de forma dinâmica.
-* *Consequência negativa* → Aumenta o número de classes do sistema.
-
-![Estrutura Facotry](imgs/factory.png)
+### **Estrutura**
+![Factory_estrutura](imgs/estrutura_factory.png)
 
 
-## **Abstract Factory :**
-* Design Pattern de **Criação**.
-* É uma Factory Method, porém composto por **múltiplas Factory Methods**.
-* Visa agrupar família de produtos compativeis compativeis, criando assim uma factory divida por grupos.
+## **Abstract Factory**
+O Abstract Factory é um padrão de **projeto criacional** que permite que você produza famílias de objetos relacionados sem ter que especificar suas classes concretas.
+![Abs Factory](imgs/abs_factory.png)
 
-Algumas consequência são levadas em conta, dentre delas:
-* *Positivas* → Os produtos sempre são compatíveis, aplicação do Open-Closed (SOLID), e aplicação do Single Responsibility Principle (SOLID) ou seja, o código que cria está separado do que usa.
-* *Negativos* → Muitas classes e maior complexidade.
+A primeira coisa que o padrão Abstract Factory sugere é declarar explicitamente interfaces para cada entidade de determinado tipo (ex: cadeira, sofá ou mesa de centro). Então você pode fazer todas as variantes da entidade seguirem essas interfaces. Por exemplo, todas as variantes de cadeira podem implementar a interface Cadeira; todas as variantes de mesa de centro podem implementar a interface MesaDeCentro, e assim por diante.
 
-![Estrutura Abs.Facotry](imgs/abs_factory.png)
+### **Aplicabilidade**
+* Use o Abstract Factory quando seu código precisa trabalhar com diversas famílias de produtos relacionados, mas que você não quer depender de classes concretas daqueles produtos-eles podem ser desconhecidos de antemão ou você simplesmente quer permitir uma futura escalabilidade.
+* Considere implementar o Abstract Factory quando você tem uma classe com um conjunto de métodos fábrica que desfoquem sua responsabilidade principal.
 
-## **Reflection :**
-Vale notar que Reflection **não é considerado um Design Pattern.**
-* Manipulador de classes, obter informações de classes, etc…
-* Utilizado em tempo de execução do programa.
+### **Prós e contras**
+Prós | Contras
+---------|----------
+Você pode ter certeza que os produtos que você obtém de uma fábrica são compatíveis entre si. | O código pode tornar-se mais complicado do que deveria ser, uma vez que muitas novas interfaces e classes são introduzidas junto com o padrão.
+Você evita um vínculo forte entre produtos concretos e o código cliente. | 
+Princípio de responsabilidade única. Você pode extrair o código de criação do produto para um lugar, fazendo o código ser de fácil manutenção. |
+Princípio aberto/fechado. Você pode introduzir novas variantes de produtos sem quebrar o código cliente existente. | 
 
-## **Dep. Injection :**
+### **Estrutura**
+![Abs Factory_estrutura](imgs/estrutura_abs_factory.png)
+
+
+## **Chain of Responsibility**
+O Chain of Responsibility é um padrão de **projeto comportamental** que permite que você passe pedidos por uma corrente de *handlers*. Ao receber um pedido, cada handler decide se processa o pedido ou o passa adiante para o próximo handler na corrente.
+![Chain Of Resp](imgs/chain_of_resp.png)
+
+Como muitos outros padrões de projeto comportamental, o Chain of Responsibility se baseia em transformar certos comportamentos em objetos solitários chamados handlers.
+O padrão sugere que você ligue esses handlers em uma corrente. Cada handler ligado tem um campo para armazenar uma referência ao próximo handler da corrente. Além de processar o pedido, handlers o passam adiante na corrente. O pedido viaja através da corrente até que todos os handlers tiveram uma chance de processá-lo.
+E aqui está a melhor parte: um handler pode decidir não passar o pedido adiante na corrente e efetivamente parar qualquer futuro processamento.
+
+* Handlers estão alinhados um a um, formando uma corrente.
+
+![Chain corrente](imgs/chain_corrente.png)
+
+* Uma corrente pode ser formada por uma secção de um objeto.
+
+![Chain corrente 2](imgs/chain_exemplo2.png)
+
+### **Aplicabilidade**
+* Utilize o padrão Chain of Responsibility quando é esperado que seu programa processe diferentes tipos de pedidos em várias maneiras, mas os exatos tipos de pedidos e suas sequências são desconhecidos de antemão.
+* Utilize o padrão quando é essencial executar diversos handlers em uma ordem específica.
+* Utilize o padrão CoR quando o conjunto de handlers e suas encomendas devem mudar no momento de execução.
+
+
+### **Prós e contras**
+Prós | Contras
+---------|----------
+Você pode controlar a ordem de tratamento dos pedidos. | Alguns pedidos podem acabar sem tratamento.
+Princípio de responsabilidade única. Você pode desacoplar classes que invocam operações de classes que realizam operações. | 
+Princípio aberto/fechado. Você pode introduzir novos handlers na aplicação sem quebrar o código cliente existente. |
+
+### **Estrutura**
+![Chain estrutura](imgs/chain_estrutura.png)
+
+
+## **Strategy**
+O Strategy é um padrão de **projeto comportamental** que permite que você defina uma família de algoritmos, coloque-os em classes separadas, e faça os objetos deles intercambiáveis.
+![Strategy](imgs/strategy.png)
+
+O padrão Strategy sugere que você pegue uma classe que faz algo específico em diversas maneiras diferentes e extraia todos esses algoritmos para classes separadas chamadas estratégias.
+A classe original, chamada contexto, deve ter um campo para armazenar uma referência para um dessas estratégias. O contexto delega o trabalho para um objeto estratégia ao invés de executá-lo por conta própria.
+
+O contexto não é responsável por selecionar um algoritmo apropriado para o trabalho. Ao invés disso, o cliente passa a estratégia desejada para o contexto. Na verdade, o contexto não sabe muito sobre as estratégias. Ele trabalha com todas elas através de uma interface genérica, que somente expõe um único método para acionar o algoritmo encapsulado dentro da estratégia selecionada.
+Desta forma o contexto se torna independente das estratégias concretas, então você pode adicionar novos algoritmos ou modificar os existentes sem modificar o código do contexto ou outras estratégias.
+
+
+![Strategy](imgs/strategy%20exemplo.png)
+
+### **Aplicabilidade**
+* Utilize o padrão Strategy quando você quer usar diferentes variantes de um algoritmo dentro de um objeto e ser capaz de trocar de um algoritmo para outro durante a execução.
+* Utilize o Strategy quando você tem muitas classes parecidas que somente diferem na forma que elas executam algum comportamento.
+* Utilize o padrão para isolar a lógica do negócio de uma classe dos detalhes de implementação de algoritmos que podem não ser tão importantes no contexto da lógica.
+* Utilize o padrão quando sua classe tem um operador condicional muito grande que troca entre diferentes variantes do mesmo algoritmo.
+
+### **Prós e contras**
+Prós | Contras
+---------|----------
+Você pode trocar algoritmos usados dentro de um objeto durante a execução. | Se você só tem um par de algoritmos e eles raramente mudam, não há motivo real para deixar o programa mais complicado com novas classes e interfaces que vêm junto com o padrão.
+Você pode isolar os detalhes de implementação de um algoritmo do código que usa ele. | Os Clientes devem estar cientes das diferenças entre as estratégias para serem capazes de selecionar a adequada.
+Você pode substituir a herança por composição. | Muitas linguagens de programação modernas tem suporte do tipo funcional que permite que você implemente diferentes versões de um algoritmo dentro de um conjunto de funções anônimas. Então você poderia usar essas funções exatamente como se estivesse usando objetos estratégia, mas sem inchar seu código com classes e interfaces adicionais.
+Princípio aberto/fechado. Você pode introduzir novas estratégias sem mudar o contexto. | 
+
+### **Estrutura**
+![Strategy](imgs/strategy_estruct.png)
+
+## **Mediator**
+O Mediator é um padrão de **projeto comportamental** que permite que você reduza as dependências caóticas entre objetos. O padrão restringe comunicações diretas entre objetos e os força a colaborar apenas através do objeto mediador.
+![Strategy](imgs/mediator.png)
+
+O padrão Mediator sugere que você deveria cessar toda comunicação direta entre componentes que você quer tornar independentes um do outro. Ao invés disso, esses componentes devem colaborar indiretamente, chamando um objeto mediador especial que redireciona as chamadas para os componentes apropriados. Como resultado, os componentes dependem apenas de uma única classe mediadora ao invés de serem acoplados a dúzias de outros colegas.
+
+Dessa forma, o padrão Mediator permite que você encapsule uma complexa rede de relações entre vários objetos em apenas um objeto mediador. Quanto menos dependências uma classe tenha, mais fácil essa classe se torna para se modificar, estender, ou reutilizar.
+
+### **Aplicabilidade**
+* Utilize o padrão Mediator quando é difícil mudar algumas das classes porque elas estão firmemente acopladas a várias outras classes.
+* Utilize o padrão quando você não pode reutilizar um componente em um programa diferente porque ele é muito dependente de outros componentes.
+* Utilize o Mediator quando você se encontrar criando um monte de subclasses para componentes apenas para reutilizar algum comportamento básico em vários contextos.
+
+### **Prós e contras**
+Prós | Contras
+---------|----------
+Princípio de responsabilidade única. Você pode extrair as comunicações entre vários componentes para um único lugar, tornando as de mais fácil entendimento e manutenção. | Com o tempo um mediador pode evoluir para um **Objeto Deus**.
+Princípio aberto/fechado. Você pode introduzir novos mediadores sem ter que mudar os próprios componentes. | 
+Você pode reduzir o acoplamento entre os vários componentes de um programa. | 
+Você pode reutilizar componentes individuais mais facilmente. | 
+
+### **Estrutura**
+![Strategy](imgs/mediator_struct.png)
+
+## **Command**
+O Command é um padrão de projeto comportamental que transforma um pedido em um objeto independente que contém toda a informação sobre o pedido. Essa transformação permite que você parametrize métodos com diferentes pedidos, atrase ou coloque a execução do pedido em uma fila, e suporte operações que não podem ser feitas.
+
+![Strategy](imgs/command.png)
+
+O padrão Command sugere que os objetos GUI não enviem esses pedidos diretamente. Ao invés disso, você deve extrair todos os detalhes do pedido, tais como o objeto a ser chamado, o nome do método, e a lista de argumentos em uma classe comando separada que tem apenas um método que aciona esse pedido.
+Como resultado, os comandos se tornam uma camada intermédia conveniente que reduz o acoplamento entre as camadas GUI e de lógica do negócio. 
+
+### **Aplicabilidade**
+* Utilize o padrão Command quando você quer parametrizar objetos com operações.
+* Utilize o padrão Command quando você quer colocar operações em fila, agendar sua execução, ou executá-las remotamente.
+* Utilize o padrão Command quando você quer implementar operações reversíveis.
+
+### **Prós e contras**
+Prós | Contras
+---------|----------
+Princípio de responsabilidade única. Você pode desacoplar classes que invocam operações de classes que fazem essas operações. | O código pode ficar mais complicado uma vez que você está introduzindo uma nova camada entre remetentes e destinatários.
+Princípio aberto/fechado. Você pode introduzir novos comandos na aplicação sem quebrar o código cliente existente. | 
+Você pode implementar desfazer/refazer. | 
+Você pode implementar a execução adiada de operações. | 
+Você pode montar um conjunto de comandos simples em um complexo. |
+
+### **Estrutura**
+![Strategy](imgs/command%20struct.png)
+
+## **Dependency injection**
 Podemos dizer que a injeção de dependência é uma inversão de controle, uma vez que não mais seu business realiza a instanciação de classes, mas sim quem está consumindo a classes, passando a responsabilidade de definir qual instância será utilizada para um “agente externo”.
 
 * Uso benéfico de interfaces.
@@ -61,19 +175,22 @@ Podemos dizer que a injeção de dependência é uma inversão de controle, uma 
 * Um objeto implementar várias interfaces, ou seja, várias dependências injetadas.
 * Facilita evolução do objeto.
 
-![Estrutura Dep.Inject](imgs/dep_inject.png)
+![Strategy](imgs/dep_inject.png)
+
+## **Reflection**
+Vale notar que Reflection não é considerado um Design Pattern.
+
+* Manipulador de classes, obter informações de classes, etc…
+* Utilizado em tempo de execução do programa.
 
 
-## **Chain Of Responsibility :**
-* É usado quando uma requisição precisa passar por uma **sequência de operações** até ser totalmente tratada.
-* Desacopla quem envia a requisição de quem vai tratar a requisição.
-* Muito utilizado em requisição HTTP.
+## **Implementações de Design Patterns em Java**
+[Exemplos em Java](https://refactoring.guru/pt-br/design-patterns/java)
 
-![Estrutura Chain.Resp](imgs/chain_of_resp.png)
+[Fontes](https://refactoring.guru/pt-br/design-patterns/catalog)
 
 
-
-# **ECOSISTEMA SPRING**
+# **Ecossistema Spring**
 Spring Boot é uma ferramenta que nasceu do framework Spring, baseado em design patterns de inversão de controle e injeção de dependência. 
 
 No geral, ele fornece a maioria dos componentes necessários em aplicações em geral de maneira pré-configurada, possibilitando uma aplicação rodando em produção rapidamente, com o esforço mínimo de configuração e implantação.

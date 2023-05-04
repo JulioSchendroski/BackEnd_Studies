@@ -1091,3 +1091,28 @@ Sua estrutura tem semelhança com bancos de dados relacionais, apesar de ser uma
 * Itens → Cada tabela contém zero ou mais itens, e cada item é um grupo de atributos identificável exclusivamente entre os outros itens.
 * Atributos → Um atributo é um elemento de dados fundamental, são similares a colunas em bancos de dados relacionais.
 
+## **Java 8**
+
+* Melhorias nas interfaces → Agora as interfaces podem definir métodos static e métodos default, Por exemplo, o padrão forEach foi incluído na interface java.lang.Iterable.
+* Interfaces funcionais → A característica mais importante das interfaces funcionais é que elas podem ser instanciadas por meio de lambdas.
+* Lambdas
+* java.util.stream → Fluxo de dados.
+
+#### **Exemplo de utilização com uma expressão lambda**
+
+~~~~Java
+palavras.sort(Comparator.comparing(s -> s.length());
+~~~~
+
+#### **Stream**
+Para criar um Stream com os elementos de nossa lista só precisamos chamar o método defaut .stream(), presente na interface Collection
+Essa API traz uma forma mais funcional de trabalhar com nossas coleções. Ela possui diversos métodos, como o filter, map e reduce
+
+* **Filtrando coleções**
+#### **Exemplo de utilização com uma expressão lambda**
+
+~~~~Java
+palavras.stream()
+        .filter(s -> s.length() < 6)
+        .forEach(System.out::println)
+~~~~

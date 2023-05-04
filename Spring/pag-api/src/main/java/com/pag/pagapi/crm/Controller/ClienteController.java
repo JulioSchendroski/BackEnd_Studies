@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pag.pagapi.crm.Model.Cliente;
 import com.pag.pagapi.crm.Repository.ClienteRepository;
-import ch.qos.logback.core.net.server.Client;
 
 @RestController
 @RequestMapping("/clientes")

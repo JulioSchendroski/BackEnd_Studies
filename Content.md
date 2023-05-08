@@ -1116,3 +1116,25 @@ palavras.stream()
         .filter(s -> s.length() < 6)
         .forEach(System.out::println)
 ~~~~
+
+
+## **Domain Driven Design**
+
+**Vale notar de não se tratar de um padrão de design ou um tipo de arquitetura.**
+
+Nesse tópico vamos responder as seguintes perguntas:
+* O que é Domain-Driven Design?
+* Como você aplicaria Domain-Driven Design?
+
+O DDD fornece uma estrutura para tomadas de decisões, combinando práticas de desenvolvimento de software e práticas de design.
+centrara **PRINCIPALMENTE** na **LÓGICA DE NEGÓCIO**, ou seja, no **DOMÍNIO**, almejando **auxiliar todo o ciclo de desenvolvimento**
+para refletir o real entendimento dos processos e regras de negócios.
+
+O DDD apresenta duas principaís estratégias:
+*Design Estratégico → Ajuda a resolver problemas relacionados a modelágem do software.
+*Design Tático → Concentra-se no desenvolvimento do produto, focado nos detalhes da implementação.
+
+Em resumo, o DDD tem o objetivo de tornar a equipe mais colaborativa e focada no que mais importa, gerando facilidades ao entender os complexos processos do negócio.
+Vantagens como uma afetiva comunicação entre devs e especialistas de negócios, de forma que o código desenvolvido reflita o máximo possível o domínio.
+
+![DDD](imgs/DDD.png)

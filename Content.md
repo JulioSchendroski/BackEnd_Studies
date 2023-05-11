@@ -1116,3 +1116,137 @@ palavras.stream()
         .filter(s -> s.length() < 6)
         .forEach(System.out::println)
 ~~~~
+
+
+## **POO**
+
+### **Polimorfismo**
+
+Polimorfismo é um princípo que permite que objetos de classes diferentes sejam tratados de mesma maneira por meio de uma classe ou interface comum. Oferencendo flexibilidade e extensibilidade ao código, permitindo que diferentes objetos respodam de maneira específica a uma chamada de método comum, conforme
+a implementação da classe à qual pertencem.
+
+
+Existem dois tipos de polimorfismo:
+* Sobreposição (**_override_**) → Acontece quando substituímos um método de uma superclasse na sua subclasse, usando a mesma assinatura.
+* Sobrecarga (**_overload_**) → Acontece quando substituímos um método de uma classe, usando uma assinatura diferente.
+
+Em resumo, podemos dizer que:
+* Mesma assinatura, classes diferentes = **Sobreposição**.
+* Diferentes assinaturas, mesma classe = **Sobercarga**.
+
+### **Herança**
+
+A herança é um mecanismo que permite uma classe (conhecida como **classe derivada** ou **subclasse**) herde características (atributos e métodos) de outra classe
+(conhecida como **classe base**, **superclasse** ou **classe pai**). Isso significa que a classe derivada possui todos atributos e métodos da classe base, além de suas próprias
+adições ou modificações.
+
+A herança permite a reutilização de código, evitando a duplicação de implementações semelhantes em diferentes classes. Ela também promove a hierarquia e a organização das classes, tornando o código mais modular e fácil de manter.
+
+~~~~Java
+class ClasseDerivada extends ClasseBase {
+    // Atributos e métodos da classe derivada
+}
+~~~~
+
+
+### **Interfaces**
+
+Uma interface é uma estrutura que define um **conjunto de métodos que uma classe deve implementar**, semelhante a um **"contrato"** em que uma classe concorda em fornecer uma determinada funcionalidade. 
+No entanto, uma interface **não fornece a implementação real dos métodos**, **apenas a assinatura** (nome, parâmetros e tipo de retorno) deles.
+
+As interfaces são usadas para **definir um comportamento comum** que pode ser implementado por várias **classes independentes**. Elas permitem que as classes forneçam uma funcionalidade consistente, mesmo que sejam de tipos diferentes.
+
+As interfaces ajudam a promover o princípio de programação **"programar para uma interface, não para uma implementação"**. Isso significa que, ao projetar classes, é recomendado que você se concentre nas interfaces que elas devem implementar em vez das implementações específicas.
+
+~~~~Java
+class Classe implements Interface {
+    // Implementação dos métodos que existem dentro do contrato da interface
+}
+~~~~
+
+### **Classe Abstrata**
+
+Uma classe abstrata é uma classe que **não pode ser instanciada diretamente**, ou seja, **não é possível criar objetos dessa classe**, servindo como **base** ou superclasse
+para outras classes que as herdam, fornecendo uma **estrutura em comum**.
+
+Ela pode conter **métodos abstratos**, que são **métodos sem implementação**, e também pode conter **métodos concretos**, que têm **implementação definida**. Porém para ser abstrata **deve possuir pelo menos um método abstrato**.
+
+As classes abstratas são úteis para definir uma base comum para classes relacionadas e fornecer um contrato de implementação. 
+
+**É importante notar que uma classe abstrata não precisa necessariamente ter métodos abstratos. Ela pode ter apenas métodos concretos e, nesse caso, sua principal finalidade é evitar a instanciação direta da classe.**
+
+## **Interface x Classe Abstrata**
+
+* Propósito → Uma classe abstrata é usada para fornecer uma estrutura comum e compartilhar código entre suas subclasses. Já uma interface é usada para definir um contrato que classes devem seguir,
+contém apenas a declaração de métodos (sem implementação) que devem ser implementados pelas classes que a implementam.
+
+No geral, as classes abstratas são mais adequadas quando você deseja fornecer uma estrutura comum e compartilhar código entre subclasses relacionadas, enquanto as interfaces são mais adequadas para definir contratos e permitir que classes não relacionadas forneçam implementações diferentes para um conjunto comum de métodos.
+
+### **Encapsulamento**
+
+Refere-se ao ato de esconder os detalhes internos de uma classe e fornecer acesso controlado aos seus membros (atributos e métodos), visa proteger os dados e o comportamento da classe, evitando que sejam acessados e modificados diretamente por outras classes.
+
+~~~~Java
+public class Pessoa {
+    private String nome;
+    private int idade;
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public int getIdade() {
+        return idade;
+    }
+
+    public void setIdade(int idade) {
+        this.idade = idade;
+    }
+}
+~~~~
+
+
+### **Diferença entre Public x Protected x Private**
+
+* Public → Atributos ou métodos declarados como "public" são acessíveis a partir de qualquer lugar, ou seja, podem ser acessados por outras classes, independentemente da relação de herança ou pacote.
+~~~~Java
+public class MinhaClasse {
+    public int meuAtributo;
+    public void meuMetodo() {
+        // código aqui
+    }
+}
+~~~~
+
+* Protected → Atributos ou métodos declarados como "protected" são acessíveis a partir da própria classe, classes derivadas (subclasses) e classes do mesmo pacote.
+~~~~Java
+public class MinhaClasse {
+    protected int meuAtributo;
+    protected void meuMetodo() {
+        // código aqui
+    }
+}
+~~~~
+
+* Private → Atributos ou métodos declarados como "private" são acessíveis apenas a partir da própria classe em que foram declarados, os membros privados não podem ser acessados diretamente por outras classes, mesmo que sejam subclasses da classe em que foram declarados.
+Para acessar ou modificar membros privados utiliza-se getters e setters.
+~~~~Java
+public class MinhaClasse {
+    private int meuAtributo;
+    private void meuMetodo() {
+        // código aqui
+    }
+
+    public int getMeuAtributo() {
+        return meuAtributo;
+    }
+
+    public void setMeuAtributo(int valor) {
+        meuAtributo = valor;
+    }
+}
+~~~~

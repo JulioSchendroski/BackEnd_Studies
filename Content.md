@@ -311,6 +311,14 @@ public class ProdutoService{
 ## **Spring Boot :**
 O Spring Boot é uma extensão do Spring, utilizando bases do Spring para iniciar uma aplicação de uma forma bem mais simplificada, também já trazendo um servidor embutido.
 
+## **Spring Data**
+
+Spring Data é um projeto do ecossistema Spring que visa simplificar o acesso e a persistência de dados em aplicativos Java. Fornece uma abstração de alto nível para trabalhar com banco de dados relacionais, NoSql e outros sistemas de armazenamentos.
+
+Ele abstrai grande parte do boilerplate do acesso a dados, fornecendo implementações padrão e recursos de mapeamento objeto-relacional (ORM) automatizados.
+
+* Spring Data JPA: Oferece uma abstração de alto nível para trabalhar com bancos de dados relacionais usando a API Java Persistence (JPA). Ele permite que os desenvolvedores escrevam consultas e operações de persistência de forma mais fácil, usando interfaces e anotações.
+
 ## **API REST e RESTful :**
 É uma aplicação cliente/servidor que envia e recebe dados através do protocolo HTTP, utilizando XML e Json para comunicação, permitindo que diferentes sistemas como desktop e mobile consumam a mesma API.
 Uma API pode ser considerada RESTful, quando utiliza-se de conceitos arquiteturais REST.
@@ -441,7 +449,15 @@ public class ProdutoController{
 
 
 ## **Java JPA :**
-Java Persistence API (JPA) é a especificação padrão da plataforma Java EE para mapeamento objeto-relacional e persistência de dados.
+JPA define uma interface comum para mapear objetos Java para bancos de dados relacionais. Ele fornece um conjunto de classes e anotações que os desenvolvedores podem usar para persistir dados de forma eficiente e fácil em um banco de dados relacional usando a linguagem Java.
+
+**O objetivo principal do JPA é simplificar o acesso a dados e a camada de persistência em aplicativos Java. Ele abstrai grande parte do trabalho manual envolvido na escrita de código SQL e fornece uma forma orientada a objetos de interagir com o banco de dados.**
+
+* Mapeamento objeto-relacional: O JPA permite que os desenvolvedores mapeiem classes Java para tabelas de banco de dados e propriedades de objetos para colunas de banco de dados. Isso é feito usando anotações como @Entity, @Table, @Column, entre outras.
+
+* Operações CRUD.
+
+* Relacionamentos entre entidades: O JPA permite definir relacionamentos entre entidades, como relacionamentos um-para-um, um-para-muitos e muitos-para-muitos. Isso é feito usando anotações como @OneToOne, @OneToMany, @ManyToOne, @ManyToMany, entre outras.
 
 # **SOLID**
 
@@ -964,6 +980,15 @@ Um pipeline de CI/CD é um conjunto de ferramentas de software usadas para autom
 
 DevOps é uma abordagem automatizada e design de plataforma que tem como objetivo aumentar a capacidade de resposta às mudanças por meio de entregas de serviços rápidas e de alta qualidade. A maioria das vezes, o pipeline CI / CD já integra a estrutura DevOps.
 
+Podemos definir de forma direta como **Otimização de processos de forma colaborativa e a automaitzação desses processos, vizando resultados eficientes, diminuindo a fronteira entre devs e profissionais de operação, mas também com toda a equipe.**
+
+* **Automação**
+* **Integração Contínua (CI)**
+* **Entrega Contínua (CD)**
+* **Infraestrutura como Código (IaC)**
+* **Monitoramento e Feedback**
+* **Colaboração e Cultura**
+
 ## **Jenkis**
 
 Jenkis é um sistema de automação **OpenSource**, que realiza dos mais diversos tipos de tarefas, muito utilizado em processos CI / CD.
@@ -1033,6 +1058,13 @@ ADD PRIMARY KEY (id_endereco);
 ALTER TABLE Pessoa
 ADD FOREIGN KEY (id_endereco) REFERENCES Endereco(id_endereco);
 ~~~~
+
+## **MySQL vs Oracle**
+* **Proprietário vs. Open-source**
+* **Licenciamento e custo**
+* **Escalabilidade**
+
+
 
 ## **MongoDB**
 
@@ -1272,3 +1304,60 @@ Em resumo, o DDD tem o objetivo de tornar a equipe mais colaborativa e focada no
 Vantagens como uma afetiva comunicação entre devs e especialistas de negócios, de forma que o código desenvolvido reflita o máximo possível o domínio.
 
 ![DDD](imgs/DDD.png)
+
+## **Estrutura de Dados**
+* Arrays (Matrizes): Uma coleção de elementos do mesmo tipo de dados, organizados em uma sequência indexada.
+
+* Listas Encadeadas: Uma estrutura de dados na qual cada elemento contém um valor e um ponteiro para o próximo elemento da lista.
+
+* Pilhas (Stacks): Uma estrutura de dados na qual os elementos são adicionados e removidos de acordo com o princípio "último a entrar, primeiro a sair" (LIFO - Last In, First Out).
+
+* Filas (Queues): Uma estrutura de dados na qual os elementos são adicionados no final e removidos do início, seguindo o princípio "primeiro a entrar, primeiro a sair" (FIFO - First In, First Out).
+
+* Árvores: Uma estrutura de dados não linear em que os elementos são organizados hierarquicamente, com um elemento chamado raiz e um conjunto de subárvores.
+
+* Árvores Binárias: Uma árvore em que cada nó possui no máximo dois filhos.
+
+* Tabelas de Hash (Hash Tables): Estruturas que usam uma função de hash para mapear chaves a valores, permitindo a busca rápida de elementos.
+
+* Grafos: Uma estrutura de dados composta por vértices (nós) conectados por arestas (relações).
+
+* Listas Duplamente Encadeadas: Semelhantes às listas encadeadas, mas cada elemento possui um ponteiro para o próximo e o anterior.
+
+* Tabelas de Dispersão (Hash Maps): Estruturas de dados que associam chaves a valores usando funções de hash, permitindo acesso rápido e eficiente.
+
+* Filas de Prioridade (Priority Queues): Uma estrutura de dados onde cada elemento possui uma prioridade associada e o acesso é feito com base nessa prioridade.
+
+* Árvores de Busca (Search Trees): Árvores que permitem a busca eficiente de elementos, como árvores binárias de busca, árvores AVL, árvores rubro-negras, entre outras.
+
+* Grafos Direcionados e Não Direcionados: Grafos em que as arestas têm direção (apontam de um vértice para outro) ou não têm direção (bidirecionais).
+
+* Filas de Duas Pontas (Deque): Uma estrutura de dados que permite a inserção e remoção de elementos tanto no início quanto no final da estrutura.
+
+* Heap: Uma árvore binária especial em que cada nó é maior ou igual (no caso de um heap máximo) ou menor ou igual (no caso de um heap mínimo) do que seus filhos.
+
+## **Ordenação**
+* Bubble Sort: Neste algoritmo, os elementos são comparados em pares adjacentes e, se estiverem na ordem errada, são trocados. O processo é repetido até que toda a lista esteja ordenada. O Bubble Sort é simples de entender, mas não é eficiente para grandes conjuntos de dados.
+
+* Insertion Sort: Este algoritmo constrói a lista ordenada um item de cada vez, inserindo cada novo elemento na posição correta em relação aos elementos já classificados. Ele percorre a lista várias vezes, movendo os elementos maiores para a direita para abrir espaço para o novo elemento. O Insertion Sort é eficiente para conjuntos de dados pequenos ou quase ordenados.
+
+* Selection Sort: Neste algoritmo, o menor elemento é encontrado e colocado na posição correta, repetindo esse processo para os elementos restantes. Ele divide a lista em duas partes: a parte classificada (à esquerda) e a parte não classificada (à direita). O Selection Sort é fácil de implementar, mas não é eficiente para grandes conjuntos de dados.
+
+* Merge Sort: Este algoritmo usa a estratégia de "dividir para conquistar". Ele divide a lista em sub-listas menores, classifica-as recursivamente e depois mescla as sub-listas para produzir a lista ordenada final. O Merge Sort é eficiente e tem uma complexidade de tempo de O(n log n), tornando-o adequado para grandes conjuntos de dados.
+
+* Quick Sort: Outro algoritmo baseado na estratégia de "dividir para conquistar", o Quick Sort seleciona um elemento pivô e rearranja os elementos para que todos os elementos menores que o pivô fiquem à sua esquerda e todos os elementos maiores fiquem à sua direita. Em seguida, ele classifica recursivamente as duas partições resultantes. O Quick Sort é eficiente na maioria dos casos, mas pode ter um desempenho ruim em conjuntos de dados já ordenados.
+
+* Heap Sort: Este algoritmo utiliza uma estrutura de dados chamada heap para classificar os elementos. Primeiro, os elementos são inseridos em um heap máximo, em seguida, o maior elemento (raiz) é removido e colocado na posição correta. Esse processo é repetido até que todos os elementos estejam ordenados. O Heap Sort tem uma complexidade de tempo de O(n log n) e é eficiente em todos os casos.
+
+* Radix Sort: Este algoritmo classifica os elementos com base em seus dígitos individuais ou em grupos de dígitos. Ele passa pelos dígitos da direita para a esquerda, realizando uma classificação estável em cada dígito. O Radix Sort é eficiente para conjuntos de dados com chaves de tamanho fixo, como números inteiros.
+
+
+## **Apache Maven**
+
+Apache Maven é uma **ferramenta de automação de construção e gerenciamento de dependências** amplamente utilizada no desenvolvimento de software Java, ajuda a **simplificar e padronizar** o processo de **construção de projetos**, incluindo **compilação**, **teste**, **empacotamento**, **implantação** e **gerenciamento de dependências**.
+
+Maven usa um arquivo de configuração chamado **pom.xml** para definir as informações e configurações do projeto. Nesse arquivo, você especifica detalhes como o nome do projeto, a versão, as dependências, os plugins e os diretórios de saída.
+
+**Gerenciamento de dependências**: Uma das principais funcionalidades do Maven é o gerenciamento de dependências. No arquivo pom.xml, você especifica as dependências do seu projeto, incluindo bibliotecas de terceiros necessárias para a compilação e execução. 
+
+O Apache Maven **simplifica o processo de construção e gerenciamento de projetos Java**, fornecendo uma **estrutura padronizada** e uma série de recursos. Ele **automatiza** muitas **tarefas** repetitivas e complexas
